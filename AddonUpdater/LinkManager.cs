@@ -38,8 +38,8 @@ namespace AddonUpdater
             foreach (var line in linkList)
             {
                 workingLink = line;
-                DownloadStuffs();
                 SiteHandler.LinkMod();
+
             }
         }
 
@@ -50,8 +50,9 @@ namespace AddonUpdater
             if (done != true)
             {
                 Console.WriteLine("doing stuff with" + " " + workingLink);
-                Console.WriteLine("waiting " + WaitTime + " milliseconds");
-                Thread.Sleep(WaitTime);
+                //Console.WriteLine("sleeping for " + WaitTime);
+                //Thread.Sleep(WaitTime);
+
             }
             if (done == true)
             {

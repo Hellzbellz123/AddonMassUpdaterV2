@@ -33,7 +33,7 @@ namespace AddonUpdater
             else if (workingLink.StartsWith(curseForge))
             {
                 // handles curseforge.com
-                System.Console.WriteLine("this is a curseforge.com link");
+                Console.WriteLine("this is a curseforge.com link");
                 var htmlDoc = web.Load(workingLink);
                 foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
                 {
@@ -44,7 +44,7 @@ namespace AddonUpdater
             else if (workingLink.StartsWith(curseProject))
             {
                 // handles curseforge.com
-                System.Console.WriteLine("this is a curseforge.com link");
+                Console.WriteLine("this is a curseforge.com link");
                 var htmlDoc = web.Load(workingLink);
                 foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
                 {
@@ -66,7 +66,7 @@ namespace AddonUpdater
             else if (workingLink.StartsWith(wowInterface))
             {
                 // handles curseforge.com
-                System.Console.WriteLine("this is a wowinterface.com link");
+                Console.WriteLine("this is a wowinterface.com link");
                 var htmlDoc = web.Load(workingLink);
                 foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
                 {
@@ -95,6 +95,7 @@ namespace AddonUpdater
                 }
 
             }
+            MakeUseableLink.DownloadStuffs();
         }
     }
 }
