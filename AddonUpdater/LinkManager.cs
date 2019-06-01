@@ -14,12 +14,11 @@ namespace AddonUpdater
         public static string downloadDirectory = workingDirectory + "/downloaded";
         public static string linkContainer = workingDirectory + "/link.txt";
         public static bool linkExists = File.Exists(linkContainer);
-        public static MainWindow window = new MainWindow();
-        public static string downloadLink, workingLinkInTextFile = null;
+        public static string downloadLink, workingLinkInTextFile, workingLink = null;
         public static List<string> linkList = File.ReadAllLines(linkContainer).ToList();
-        public static string workingLink = null;
         public static bool done;
         private static SiteHandler siteHandler = new SiteHandler();
+        private static MainWindow window = new MainWindow();
 
         public static void FileCheck()
         {
@@ -39,9 +38,8 @@ namespace AddonUpdater
             foreach (var line in linkList)
             {
                 workingLink = line;
+                DownloadStuffs();
                 SiteHandler.LinkMod();
-                //Console.WriteLine(workingLink);
-                //DownloadStuffs();
             }
         }
 
@@ -54,12 +52,10 @@ namespace AddonUpdater
                 Console.WriteLine("doing stuff with" + " " + workingLink);
                 Console.WriteLine("waiting " + WaitTime + " milliseconds");
                 Thread.Sleep(WaitTime);
-                Console.WriteLine("");
-                Console.WriteLine(done);
             }
             if (done == true)
             {
-            Console.WriteLine("DONE");
+                MainWindow.CurrentLink();
             }
 
         }

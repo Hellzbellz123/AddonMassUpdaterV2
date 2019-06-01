@@ -6,30 +6,31 @@ namespace AddonUpdater
     public class SiteHandler
     {
         public static string downloadLink = string.Empty;
-        private static string workingLink = MakeUseableLink.workingLink;
         private static string curseProject = "https://wow.curseforge.com/projects/";
         private static string curseForge = "https://www.curseforge.com/wow/addons/";
         private static string curseForgeMods = "https://mods.curse.com/addons/wow/";
         private static string wowAce = "https://www.wowace.com/projects/";
         private static string wowInterface = "http://www.wowinterface.com/";
         private static HtmlWeb web = new HtmlWeb();
+        public static string workingLink = null;
 
 
         public static void LinkMod()
         {
-            if (MakeUseableLink.workingLink.StartsWith(curseForgeMods))
+            workingLink = MakeUseableLink.workingLink;
+
+            if (workingLink.StartsWith(curseForgeMods))
             {
                 // handles mods.curse.com links
-                System.Console.WriteLine("this is a mods.curse.com link");
+                Console.WriteLine("this is a mods.curse.com link");
                 var htmlDoc = web.Load(workingLink);
                 foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
                 {
                     var hrefValue = node.Attributes["href"]?.Value;
                     downloadLink = workingLink + hrefValue;
-                    Console.WriteLine(downloadLink);
                 }
             }
-            else if (MakeUseableLink.workingLink.StartsWith(curseForge))
+            else if (workingLink.StartsWith(curseForge))
             {
                 // handles curseforge.com
                 System.Console.WriteLine("this is a curseforge.com link");
@@ -38,22 +39,31 @@ namespace AddonUpdater
                 {
                     var hrefValue = node.Attributes["href"]?.Value;
                     downloadLink = workingLink + hrefValue;
-                    Console.WriteLine(downloadLink);
                 }
             }
-            else if (MakeUseableLink.workingLink.StartsWith(wowAce))
+            else if (workingLink.StartsWith(curseProject))
             {
                 // handles curseforge.com
-                System.Console.WriteLine("this is a wowace.com link");
+                System.Console.WriteLine("this is a curseforge.com link");
                 var htmlDoc = web.Load(workingLink);
                 foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
                 {
                     var hrefValue = node.Attributes["href"]?.Value;
                     downloadLink = workingLink + hrefValue;
-                    Console.WriteLine(downloadLink);
                 }
             }
-            else if (MakeUseableLink.workingLink.StartsWith(wowInterface))
+            else if (workingLink.StartsWith(wowAce))
+            {
+                // handles curseforge.com
+                Console.WriteLine("this is a wowace.com link");
+                var htmlDoc = web.Load(workingLink);
+                foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
+                {
+                    var hrefValue = node.Attributes["href"]?.Value;
+                    downloadLink = workingLink + hrefValue;
+                }
+            }
+            else if (workingLink.StartsWith(wowInterface))
             {
                 // handles curseforge.com
                 System.Console.WriteLine("this is a wowinterface.com link");
@@ -62,22 +72,19 @@ namespace AddonUpdater
                 {
                     var hrefValue = node.Attributes["href"]?.Value;
                     downloadLink = workingLink + hrefValue;
-                    Console.WriteLine(downloadLink);
                 }
             }
-            else if (MakeUseableLink.workingLink.StartsWith(curseProject))
+            else if (workingLink.StartsWith(curseProject))
             {
                 // Curse Project
-                if (MakeUseableLink.workingLink.EndsWith("/files"))
+                if (workingLink.EndsWith("/files"))
                 {
                     // Remove /files from the end of the URL, since it gets added later
-                    workingLink = MakeUseableLink.workingLink.Remove(-6);
-                    System.Console.WriteLine("this link had /files at the end");
+                    workingLink = workingLink.Remove(-6);
                 }
                 else
                 {
-                    System.Console.WriteLine("this is a wow.curseforge.com link");
-
+                    return;
                 }
 
                 var htmlDoc = web.Load(workingLink);
@@ -85,8 +92,8 @@ namespace AddonUpdater
                 {
                     var hrefValue = node.Attributes["href"]?.Value;
                     downloadLink = workingLink + hrefValue;
-                    Console.WriteLine(downloadLink);
                 }
+
             }
         }
     }
