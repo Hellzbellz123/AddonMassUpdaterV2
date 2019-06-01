@@ -39,26 +39,23 @@ namespace AddonUpdater
             {
                 workingLink = line;
                 SiteHandler.LinkMod();
-
+                if(string.IsNullOrEmpty(workingLink))
+                {
+                    done = false;
+                }
             }
         }
 
         public static void DownloadStuffs()
         {
-            int WaitTime = 1000;
-
             if (done != true)
             {
                 Console.WriteLine("doing stuff with" + " " + workingLink);
-                //Console.WriteLine("sleeping for " + WaitTime);
-                //Thread.Sleep(WaitTime);
-
             }
             if (done == true)
             {
-                MainWindow.CurrentLink();
+                MainWindow.IsDone();
             }
-
         }
     }
 }

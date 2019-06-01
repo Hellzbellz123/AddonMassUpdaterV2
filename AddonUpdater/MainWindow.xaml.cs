@@ -26,9 +26,9 @@ namespace AddonUpdater
             MessageBox.Show("Please add links to the links.txt file.");
         }
 
-        public static void CurrentLink()
+        public static void IsDone()
         {
-            MessageBox.Show("");
+            MessageBox.Show("Downloads are finished");
         }
     }
 }
