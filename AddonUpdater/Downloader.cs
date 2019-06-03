@@ -17,9 +17,8 @@ namespace AddonUpdater
         private readonly string curseForge = "://www.curseforge.com/wow/addons/";
         private readonly string wowAce = "://www.wowace.com/projects/";
         private readonly string wowInterface = "://www.wowinterface.com/";
-
         private string workingLink, downloadLink = string.Empty;
-        readonly HtmlWeb web = new HtmlWeb();
+        private readonly HtmlWeb web = new HtmlWeb();
         public static bool done = false;
 
         public void FormatLinks()
@@ -99,16 +98,16 @@ namespace AddonUpdater
                 MainWindow.IsDone();
             }
         }
+
         public void Filedownload()
         {
             Console.WriteLine(downloadLink);
             WebRequest request = WebRequest.Create(downloadLink);
-            string filename = "";
-            using (WebResponse response = (WebResponse)request.GetResponse())
+            using (WebResponse response = request.GetResponse())
             {
                 string responseURI = response.ResponseUri.ToString();
                 var uri = new Uri(downloadLink);
-                filename = Path.GetFileName(responseURI);
+                string filename = Path.GetFileName(responseURI);
 
                 string downDir = downloadDirectory;
                 var responseStream = response.GetResponseStream();
