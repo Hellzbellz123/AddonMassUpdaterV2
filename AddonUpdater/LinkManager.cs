@@ -6,6 +6,7 @@ using System.Threading;
 
 namespace AddonUpdater
 {
+
     public class MakeUseableLink
     {
         public static string workingDirectory = Directory.GetCurrentDirectory();
@@ -18,7 +19,7 @@ namespace AddonUpdater
         private static SiteHandler siteHandler = new SiteHandler();
         private static MainWindow window = new MainWindow();
 
-        public static void FileCheck()
+        public void FileCheck()
         {
             if (linkExists == true)
             {
@@ -31,12 +32,12 @@ namespace AddonUpdater
             }
         }
 
-        public static void FormatLinks()
+        public void FormatLinks()
         {
             foreach (var line in linkList)
             {
                 workingLink = line;
-                SiteHandler.LinkMod();
+                siteHandler.LinkMod();
                 if (string.IsNullOrEmpty(workingLink))
                 {
                     done = false;
@@ -44,7 +45,7 @@ namespace AddonUpdater
             }
         }
 
-        public static void DownloadStuffs()
+        public void DownloadStuffs()
         {
             if (done != true)
             {

@@ -5,33 +5,33 @@ namespace AddonUpdater
 {
     public class SiteHandler
     {
-        private static string curseForgeMods = "://mods.curse.com/addons/wow/";
-        private static string curseProject = "://wow.curseforge.com/projects/";
-        private static string curseForge = "://www.curseforge.com/wow/addons/";
-        private static string wowAce = "://www.wowace.com/projects/";
-        private static string wowInterface = "://www.wowinterface.com/";
-        private static HtmlWeb web = new HtmlWeb();
-        public static string workingLink, downloadLink = null;
+        private string curseProject = "://wow.curseforge.com/projects/";
+        private string curseForge = "://www.curseforge.com/wow/addons/";
+        private string wowAce = "://www.wowace.com/projects/";
+        private string wowInterface = "://www.wowinterface.com/";
+        private MakeUseableLink MLU = new MakeUseableLink();
+        private HtmlWeb web = new HtmlWeb();
+        private SiteHandler siteH = new SiteHandler();
+        private string workingLink = MakeUseableLink.workingLink;
+        private string downloadLink;
 
-        public static void LinkMod()
+        public void LinkMod()
         {
-            workingLink = MakeUseableLink.workingLink;
 
-            if (workingLink.Contains(curseProject)) //wow.curseforge.com/projects/
+            if (workingLink.Contains(siteH.curseProject)) //wow.curseforge.com/projects/
             {
                 // handles curseforge.comjustt
                 Console.WriteLine("this is a wow.curseforge.com link");
-                workingLink = workingLink + ("/files/latest");
-                var htmlDoc = web.Load(workingLink);
-                Downloader.Filedownload();
+                workingLink += ("/files/latest");
+                var htmlDoc = siteH.web.Load(MakeUseableLink.workingLink);
             }
-            else if (workingLink.Contains(curseForge) || workingLink.Contains(curseForge)) //curseforge.com/wow/addons/
+            else if (workingLink.Contains(siteH.curseForge) || workingLink.Contains(siteH.curseForge)) //curseforge.com/wow/addons/
             {
                 // handles curseforge.com
                 Console.WriteLine("this is a curseforge.com link");
                 if (workingLink.Contains("/download"))
                 {
-                    var htmlDoc = web.Load(workingLink);
+                    var htmlDoc = web.Load(MakeUseableLink.workingLink);
                     foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
                     {
                         var hrefValue = node.Attributes["href"]?.Value;
@@ -41,8 +41,8 @@ namespace AddonUpdater
                 }
                 else
                 {
-                    workingLink += "/download";
-                    var htmlDoc = web.Load(workingLink);
+                    MakeUseableLink.workingLink += "/download";
+                    var htmlDoc = web.Load(MakeUseableLink.workingLink);
                     foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
                     {
                         var hrefValue = node.Attributes["href"]?.Value;
@@ -50,8 +50,7 @@ namespace AddonUpdater
                         workingLink = downloadLink;
                     }
                 }
-                Downloader.Filedownload();
-
+                
             }
             else if (workingLink.Contains(wowAce)) //www.wowace.com/projects/
             {
@@ -59,7 +58,6 @@ namespace AddonUpdater
                 Console.WriteLine("this is a wowace.com link");
                 var htmlDoc = web.Load(workingLink);
                 downloadLink = workingLink + "/files/latest";
-
             }
             else if (workingLink.Contains(wowInterface))  // handles WoWInterface
             {
@@ -72,7 +70,9 @@ namespace AddonUpdater
                     downloadLink = hrefValue;
                 }
             }
-            MakeUseableLink.DownloadStuffs();
+
+            MLU.DownloadStuffs();
+            Downloader.Filedownload();
         }
     }
 }

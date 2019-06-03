@@ -7,6 +7,8 @@ namespace AddonUpdater
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MakeUseableLink MLU = new MakeUseableLink();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -14,7 +16,7 @@ namespace AddonUpdater
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MakeUseableLink.FileCheck();
+            MLU.FileCheck();
             MakeUseableLink.done = false;
         }
 
