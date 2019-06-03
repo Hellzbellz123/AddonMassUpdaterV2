@@ -38,9 +38,8 @@ namespace AddonUpdater
 
         public void LinkMod()
         {
-            if (workingLink.Contains(curseProject)) //wow.curseforge.com/projects/
+            if (workingLink.Contains(curseProject) || workingLink.Contains(wowAce)) //wow.curseforge.com/projects/ || //www.wowace.com/projects/
             {
-                // handles curseforge.comjustt
                 Console.WriteLine("this is a wow.curseforge.com link");
                 workingLink += ("/files/latest");
                 var htmlDoc = web.Load(workingLink);
@@ -72,13 +71,6 @@ namespace AddonUpdater
                     }
                 }
             }
-            else if (workingLink.Contains(wowAce)) //www.wowace.com/projects/
-            {
-                // handles WoWAce
-                Console.WriteLine("this is a wowace.com link");
-                var htmlDoc = web.Load(workingLink);
-                downloadLink = workingLink + "/files/latest";
-            }
             else if (workingLink.Contains(wowInterface))  // handles WoWInterface
             {
                 var downloadpage = workingLink.Replace("info", "download");
@@ -107,7 +99,6 @@ namespace AddonUpdater
                 MainWindow.IsDone();
             }
         }
-
         public void Filedownload()
         {
             Console.WriteLine(downloadLink);
