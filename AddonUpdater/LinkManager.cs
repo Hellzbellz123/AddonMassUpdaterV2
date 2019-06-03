@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,7 +23,7 @@ namespace AddonUpdater
         {
             if (linkExists == true)
             {
-                new Thread(FormatLinks).Start();
+                //new Thread(FormatLinks).Start();
             }
             else
             {
@@ -58,3 +58,4 @@ namespace AddonUpdater
         }
     }
 }
+*/

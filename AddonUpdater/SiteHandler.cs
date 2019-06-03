@@ -1,4 +1,4 @@
-﻿using HtmlAgilityPack;
+﻿/*using HtmlAgilityPack;
 using System;
 
 namespace AddonUpdater
@@ -9,7 +9,7 @@ namespace AddonUpdater
         private string curseForge = "://www.curseforge.com/wow/addons/";
         private string wowAce = "://www.wowace.com/projects/";
         private string wowInterface = "://www.wowinterface.com/";
-        private MakeUseableLink MLU = new MakeUseableLink();
+        // private MakeUseableLink MLU = new MakeUseableLink();
         private HtmlWeb web = new HtmlWeb();
         private SiteHandler siteH = new SiteHandler();
         private string workingLink = MakeUseableLink.workingLink;
@@ -18,14 +18,17 @@ namespace AddonUpdater
         public void LinkMod()
         {
 
-            if (workingLink.Contains(siteH.curseProject)) //wow.curseforge.com/projects/
+            if (workingLink.Contains(curseProject)) //wow.curseforge.com/projects/
             {
                 // handles curseforge.comjustt
                 Console.WriteLine("this is a wow.curseforge.com link");
                 workingLink += ("/files/latest");
                 var htmlDoc = siteH.web.Load(MakeUseableLink.workingLink);
             }
-            else if (workingLink.Contains(siteH.curseForge) || workingLink.Contains(siteH.curseForge)) //curseforge.com/wow/addons/
+        }
+    }
+}
+           /* else if (workingLink.Contains(siteH.curseForge) || workingLink.Contains(siteH.curseForge)) //curseforge.com/wow/addons/
             {
                 // handles curseforge.com
                 Console.WriteLine("this is a curseforge.com link");
@@ -70,9 +73,6 @@ namespace AddonUpdater
                     downloadLink = hrefValue;
                 }
             }
-
-            MLU.DownloadStuffs();
-            Downloader.Filedownload();
         }
     }
 }
@@ -462,3 +462,4 @@ namespace AddonUpdater
        }
    }
    */
+     

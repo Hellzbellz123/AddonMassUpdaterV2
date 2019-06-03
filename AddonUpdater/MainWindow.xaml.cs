@@ -7,7 +7,7 @@ namespace AddonUpdater
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MakeUseableLink MLU = new MakeUseableLink();
+        private new readonly Downloader MakeaLink = new Downloader();
 
         public MainWindow()
         {
@@ -16,8 +16,8 @@ namespace AddonUpdater
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MLU.FileCheck();
-            MakeUseableLink.done = false;
+            MakeaLink.FileCheck();
+            Downloader.done = false;
         }
 
         public void MessageBoxNoLinks()
