@@ -6,8 +6,16 @@
         xmlns:local="clr-namespace:AddonUpdater"
 		x:Class="AddonUpdater.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="152.5" Width="294.5">
-    <Grid Margin="0,0,2,-21">
-        <Button Content="Button" HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top" Width="260" Height="90" Click="Button_Click" />
+        Title="MainWindow" Height="115.167" Width="265.833">
+    <Grid Margin="0,0,-3,-2" RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="0.011"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <Button Content="Update&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Width="261" Height="86" Click="Button_Click" />
     </Grid>
 </Window>

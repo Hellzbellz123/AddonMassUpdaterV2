@@ -34,7 +34,6 @@ namespace AddonUpdater
                 LinkMod();
             }
         }
-
         public void LinkMod()
         {
             if (workingLink.Contains(curseProject) || workingLink.Contains(wowAce)) //wow.curseforge.com/projects/ || //www.wowace.com/projects/
@@ -83,14 +82,13 @@ namespace AddonUpdater
             }
             Filedownload();
         }
-
         public void DownloadStuffs()
         {
             done = false;
             if (done != true)
             {
                 Console.WriteLine("doing stuff with" + " " + workingLink);
-                Thread.Sleep(100);
+
                 Filedownload();
             }
             if (done == true)
@@ -98,9 +96,9 @@ namespace AddonUpdater
                 MainWindow.IsDone();
             }
         }
-
         public void Filedownload()
         {
+
             Console.WriteLine(downloadLink);
             WebRequest request = WebRequest.Create(downloadLink);
             using (WebResponse response = request.GetResponse())
@@ -108,7 +106,6 @@ namespace AddonUpdater
                 string responseURI = response.ResponseUri.ToString();
                 var uri = new Uri(downloadLink);
                 string filename = Path.GetFileName(responseURI);
-
                 string downDir = downloadDirectory;
                 var responseStream = response.GetResponseStream();
                 using (var fileStream = File.Create(Path.Combine(downDir + filename)))
