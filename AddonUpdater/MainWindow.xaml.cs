@@ -16,7 +16,7 @@ namespace AddonUpdater
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MakeaLink.FileCheck();
+            MakeaLink.FormatLinks();
             Downloader.done = false;
         }
 

@@ -17,43 +17,21 @@ namespace AddonUpdater
         private readonly string curseForge = "://www.curseforge.com/wow/addons/";
         private readonly string wowAce = "://www.wowace.com/projects/";
         private readonly string wowInterface = "://www.wowinterface.com/";
-        private static bool linksExists = File.Exists(linkContainer);
-        private static List<string> linkList = File.ReadAllLines(linkContainer).ToList();
+
         private string workingLink, downloadLink = string.Empty;
-        readonly static MainWindow window = new MainWindow();
         readonly HtmlWeb web = new HtmlWeb();
         public static bool done = false;
 
-        public void FileCheck()
-        {
-            try
-            {
-                if (linksExists == true)
-                {
-                    new Thread(FormatLinks).Start();
-                }
-                else
-                {
-                    window.MessageBoxNoLinks();
-                }
-            }
-            catch (Exception)
-            {
-                File.Create("\\links.txt");
-
-            }
-
-        }
-
         public void FormatLinks()
         {
+            if (!File.Exists(linkContainer))
+                File.Create(linkContainer);
+            List<string> linkList = File.ReadAllLines(linkContainer).ToList();
             foreach (var line in linkList)
             {
                 workingLink = line;
                 if (string.IsNullOrEmpty(workingLink))
-                {
                     done = true;
-                }
                 LinkMod();
             }
         }
@@ -117,6 +95,7 @@ namespace AddonUpdater
 
         public void DownloadStuffs()
         {
+            done = false;
             if (done != true)
             {
                 Console.WriteLine("doing stuff with" + " " + workingLink);
@@ -132,9 +111,9 @@ namespace AddonUpdater
         public void Filedownload()
         {
             Console.WriteLine(downloadLink);
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(downloadLink);
+            WebRequest request = WebRequest.Create(downloadLink);
             string filename = "";
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponseAsync().Result)
+            using (WebResponse response = (WebResponse)request.GetResponse())
             {
                 string responseURI = response.ResponseUri.ToString();
                 var uri = new Uri(downloadLink);
