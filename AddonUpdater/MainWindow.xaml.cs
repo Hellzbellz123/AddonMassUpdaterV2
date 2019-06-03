@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Windows;
-using HtmlAgilityPack;
+﻿using System.Windows;
 
 namespace AddonUpdater
 {

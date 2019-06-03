@@ -5,63 +5,62 @@ namespace AddonUpdater
 {
     public class SiteHandler
     {
-        public static string downloadLink = string.Empty;
+        private static string curseForgeMods = "://mods.curse.com/addons/wow/";
         private static string curseProject = "://wow.curseforge.com/projects/";
         private static string curseForge = "://www.curseforge.com/wow/addons/";
-        private static string curseForgeMods = "://mods.curse.com/addons/wow/";
         private static string wowAce = "://www.wowace.com/projects/";
         private static string wowInterface = "://www.wowinterface.com/";
         private static HtmlWeb web = new HtmlWeb();
-        public static string workingLink = null;
+        public static string workingLink, downloadLink = null;
 
         public static void LinkMod()
         {
             workingLink = MakeUseableLink.workingLink;
 
-            if (workingLink.Contains(curseForgeMods))
+            if (workingLink.Contains(curseProject)) //wow.curseforge.com/projects/
             {
-                // handles mods.curse.com links
-                Console.WriteLine("this is a mods.curse.com link");
-                var htmlDoc = web.Load(workingLink);
-                //foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
-                //{
-                //    var hrefValue = node.Attributes["href"]?.Value;
-                //    downloadLink = workingLink + hrefValue;
-                //}
-            }
-            else if (workingLink.Contains(curseProject))
-            {
-                // handles curseforge.com
+                // handles curseforge.comjustt
                 Console.WriteLine("this is a wow.curseforge.com link");
+                workingLink = workingLink + ("/files/latest");
                 var htmlDoc = web.Load(workingLink);
-                //foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
-                //{
-                //    var hrefValue = node.Attributes["href"]?.Value;
-                //    downloadLink = workingLink + hrefValue;
-                // }
+                Downloader.Filedownload();
             }
-            else if (workingLink.Contains(curseForge))
+            else if (workingLink.Contains(curseForge) || workingLink.Contains(curseForge)) //curseforge.com/wow/addons/
             {
                 // handles curseforge.com
                 Console.WriteLine("this is a curseforge.com link");
-                var htmlDoc = web.Load(workingLink);
-                //foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
-                // {
-                //     var hrefValue = node.Attributes["href"]?.Value;
-                //    downloadLink = workingLink + hrefValue;
-                //}
+                if (workingLink.Contains("/download"))
+                {
+                    var htmlDoc = web.Load(workingLink);
+                    foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
+                    {
+                        var hrefValue = node.Attributes["href"]?.Value;
+                        downloadLink = $"https://www.curseforge.com{hrefValue}";
+                        workingLink = downloadLink;
+                    }
+                }
+                else
+                {
+                    workingLink += "/download";
+                    var htmlDoc = web.Load(workingLink);
+                    foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//p/a"))
+                    {
+                        var hrefValue = node.Attributes["href"]?.Value;
+                        downloadLink = "https://www.curseforge.com" + hrefValue;
+                        workingLink = downloadLink;
+                    }
+                }
+                Downloader.Filedownload();
+
             }
-            else if (workingLink.Contains(wowAce))
+            else if (workingLink.Contains(wowAce)) //www.wowace.com/projects/
             {
                 // handles WoWAce
                 Console.WriteLine("this is a wowace.com link");
                 var htmlDoc = web.Load(workingLink);
                 downloadLink = workingLink + "/files/latest";
 
-                Console.WriteLine(downloadLink);
-
             }
-
             else if (workingLink.Contains(wowInterface))  // handles WoWInterface
             {
                 var downloadpage = workingLink.Replace("info", "download");
@@ -71,11 +70,8 @@ namespace AddonUpdater
                 {
                     var hrefValue = node.Attributes["href"]?.Value;
                     downloadLink = hrefValue;
-
-                    
                 }
             }
-
             MakeUseableLink.DownloadStuffs();
         }
     }

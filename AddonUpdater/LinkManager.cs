@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace AddonUpdater
 {
     public class MakeUseableLink
     {
         public static string workingDirectory = Directory.GetCurrentDirectory();
-        public static string downloadDirectory = workingDirectory + "/downloaded";
+        public static string downloadDirectory = workingDirectory + "/Downloads/";
         public static string linkContainer = workingDirectory + "/link.txt";
         public static bool linkExists = File.Exists(linkContainer);
         public static string downloadLink, workingLinkInTextFile, workingLink = null;
@@ -39,7 +37,7 @@ namespace AddonUpdater
             {
                 workingLink = line;
                 SiteHandler.LinkMod();
-                if(string.IsNullOrEmpty(workingLink))
+                if (string.IsNullOrEmpty(workingLink))
                 {
                     done = false;
                 }
